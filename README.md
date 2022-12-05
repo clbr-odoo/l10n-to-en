@@ -29,9 +29,9 @@ The only extra requirement if you want to use first part of the script that tran
    See [here](https://www.notion.so/Localization-101-454abcff422c4110ac3898c9b5d7da05#ad77d275215549d0923ad11789bdf138) if you need more details.
 3. Use script `translate_to_en.py`
    ```bash
-   python3 translate_to_en.py -p {POT_FILE_PATH} -l {LANGUAGE_CODE}
+   python3 translate_to_en.py -p {POT_FILE_PATH} -l {LANGUAGE_CODE} [-f {PO_FILE_PATH}]
    ```
-   You provide the script the .pot file created previously (as it is, don't inverse msgid and msgstr, next script will handle that for you) and the XX code of the foreign language.
+   You provide the script the .pot file created previously (as it is, don't inverse msgid and msgstr, next script will handle that for you) and the XX code of the foreign language. Optionally you can provide an existing PO file to keep existing translations.
 
    Here is the [list of supported languages](https://libretranslate.com/languages).
 4. Check all translations manually
@@ -40,6 +40,17 @@ The only extra requirement if you want to use first part of the script that tran
    python3 post_translation.py -p {POT_FILE_PATH} -l LANGUAGE -m {MODULE_DATA_DIRECTORY_PATH}
    ```
    Provide the .pot file with your corrections (again **don't** inverse msgid and msgstr, script will do it), the foreign language and the path of the `data` directory of your localization, in which the script will replace foreign terms by english-translated terms.
+   The .pot file must be either created following this guide or follow this structure:
+   ```
+   # blahblah from po
+   msgid "Text in foreign language"
+   msgstr "Text in English"
+   OR 
+   # blahblah
+   msgid "Text already in English"
+   msgstr "" <-- empty !
+   ```
+   Basically when both msgid and msgstr are filled they will be reversed and translation exported to .po file, so be sure if there is English in your msgid there are no associated translation.
 6. You're done !
 
 Don't hesitate to message me on Discord if you have questions: Claire (clbr)#3668
